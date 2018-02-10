@@ -18,10 +18,13 @@
 <body>
 <div class="content">
     <div class="header">
-        <img src=""
+        <img src="">
     </div>
     <div class="form">
-
+        <form action="">
+            <p>Podaj imię:</p><input name="Name"><br>
+            <p>Podaj nazwisko:</p><input name="Surname"><br>
+        </form>
     </div>
 </div>
 </body>
