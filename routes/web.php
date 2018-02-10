@@ -15,6 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/form', 'FormController@show');
+Route::post('/save', [
+    'uses' => 'FormController@save',
+    'as' => 'form.save'
+]);
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
