@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Form;
 use Illuminate\Http\Request;
 
 class FormController extends Controller
@@ -15,8 +16,9 @@ class FormController extends Controller
         return view('form');
     }
 
-    public function save ()
+    public function save (Request $request)
     {
-
+       // dd($request->all());
+        Form::create($request->all());
     }
 }
