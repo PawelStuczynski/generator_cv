@@ -2,17 +2,39 @@
 @section('title','Generator CV')
 @section('content')
 
-
+    <link href="{{ asset('css/form.css') }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
     <div style="text-align: center">
         <img src="{{URL::asset('img/logo.png')}}" width="90%">
     </div>
 
     <div class="form col-12 container-fluid" id='form_id'>
-        <form   action="{{route('form.save')}}"  method="post">
+        <form   action=""  method="post">
             <input type="hidden" name='_token' value="{{csrf_token()}}" >
             <div class="row justify-content-center">
-                {{--Podstawowe informacje/dane--}}
+                {{----}}
+                {{----}}
+
+                {{--Zdjęcie--}}
+                <div class="col-12" style="margin-top: 50px;" >
+                    <h4 style="text-align: center"><b>Zdjęcie</b></h4>
+                </div>
+
+                <div   class="col-12"  style="margin-top: 20px; text-align: center">
+                    <div v-if="!image">
+                        <input id="image_id" type="file" @change="onFileChange"  style="display: inline" class="">
+                    </div>
+
+                    <div v-else>
+                        <img id="avatar" :src="image" />
+                        <button type="button" @click="removeImage"  >Usuń zdjęcie</button>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-12" id="separator" style="height: 3px; background-color: #636b6f; margin-top:20px ; margin-bottom: 20px"></div>
+                {{----}}
+                {{----}}
+
+                {{--Dane--}}
                 <div class="col-12" style="margin-top: 50px;" >
                     <h4 style="text-align: center"><b>Podstawowe dane</b></h4>
                 </div>
@@ -20,44 +42,44 @@
 
                     <div class="form-group">
                         <label for="name">Imię:</label>
-                        <input type="text" name="name"  class="form-control">
+                        <input id="name_id" type="text" v-model="name"  class="form-control">
                     </div>
 
                     <div class="form-group">
                         <label for="surname">Nazwisko:</label>
-                        <input type="text" name="surname"  class="form-control">
+                        <input  id="surname_id" type="text" v-model="surname"  class="form-control">
                     </div>
 
                     <div class="form-group">
                         <label for="phone">Numer telefonu:</label>
-                        <input type="text" name="phone" class="form-control">
+                        <input id="phone_id" type="text" v-model="phone" class="form-control">
                     </div>
 
                     <div class="form-group">
                         <label for="email">Email:</label>
-                        <input type="text" name="email"  class="form-control">
+                        <input id="email_id" type="text" v-model="email"  class="form-control">
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-12">
 
                     <div class="form-group">
                         <label for="adress">Adres:</label>
-                        <input type="text" name="adress"  class="form-control">
+                        <input id="adress_id" type="text" v-model="adress"  class="form-control">
                     </div>
 
                     <div class="form-group">
                         <label for="zipcode">Kod pocztowy:</label>
-                        <input type="text" name="zipcode" class="form-control">
+                        <input id="zipcode_id" type="text" v-model="zipcode" class="form-control">
                     </div>
 
                     <div class="form-group">
                         <label for="city">Miasto:</label>
-                        <input type="text" name="city" class="form-control">
+                        <input id="city_id" type="text" v-model="city" class="form-control">
                     </div>
 
                     <div class="form-group">
                         <label for="birthdate">Data urodzenia:</label>
-                        <input type="date" name="birthdate" class="form-control" >
+                        <input id="birthdate_id" type="date" v-model="birthdate" class="form-control" >
                     </div>
 
                 </div>
@@ -84,7 +106,7 @@
                         <input v-model="education.school_begin" type="date" name="education[][school_begin]" class="form-control">
                     </div>
                     <div class="form-group col-lg-2 col-md-2 col-sm-12">
-                        <label for="education[][school_ended]">Data rozpoczęcia:</label>
+                        <label for="education[][school_ended]">Data zakończenia:</label>
                         <input v-model="education.school_ended" type="date" name="education[][school_ended]" class="form-control">
                     </div>
                     <div class="form-group col-lg-8 col-md-8 col-sm-12">
@@ -126,7 +148,7 @@
                         <input v-model="employer.corporation_begin" type="date" name="employer[][corporation_begin]" class="form-control">
                     </div>
                     <div class="form-group col-lg-2 col-md-2 col-sm-12">
-                        <label for="employer[][corporation_ended]">Data rozpoczęcia:</label>
+                        <label for="employer[][corporation_ended]">Data zakończenia:</label>
                         <input v-model="employer.corporation_ended" type="date" name="employer[][corporation_ended]" class="form-control">
                     </div>
                     <div class="form-group col-lg-8 col-md-8 col-sm-12">
@@ -152,7 +174,7 @@
 
             {{--Jezyki--}}
             <div class="col-12" style="margin-top: 50px;" >
-                <h4 style="text-align: center"><b>Języki</b></h4>
+                <h4 style="text-align: center"><b>Języki obce</b></h4>
             </div>
             <div v-for="(language, index3) in languages">
                 <div class="row justify-content-center"  style="margin-top: 20px">
@@ -195,7 +217,7 @@
             </div>
             <div class="row justify-content-center"  style="margin-top: 20px">
                 <div class="form-group col-lg-8 col-md-8 col-sm-12">
-                    <textarea type="text" name="additional_abilities" class="form-control" placeholder="Napisz co jeszcze potrafisz" rows="5" ></textarea>
+                    <textarea type="text" v-model="additional_abilities" class="form-control" placeholder="Napisz co jeszcze potrafisz" rows="5" ></textarea>
                 </div>
             </div>
             <div class="row justify-content-center"  style="margin-top: 20px">
@@ -211,7 +233,7 @@
             </div>
             <div class="row justify-content-center"  style="margin-top: 20px">
                 <div class="form-group col-lg-8 col-md-8 col-sm-12">
-                    <textarea type="text" name="interests" class="form-control" placeholder="Napisz czym się interesujesz" rows="5" ></textarea>
+                    <textarea type="text" v-model="interests" class="form-control" placeholder="Napisz czym się interesujesz" rows="5" ></textarea>
                 </div>
             </div>
             <div class="row justify-content-center"  style="margin-top: 20px">
@@ -219,9 +241,15 @@
             </div>
             {{----}}
             {{----}}
+            <div  class="row justify-content-center"  style="margin-top: 20px">
+                <div class="form-group col-lg-8 col-md-8 col-sm-12" style="display: flex">
+                    <input  type="checkbox" v-model="agreement" >
+                    <p id="agreement_id" class=""> Wyrażam zgodę na przetwarzanie moich danych osobowych dla potrzeb niezbędnych do realizacji procesu rekrutacji (zgodnie z Ustawą z dnia 29.08.1997 roku o Ochronie Danych Osobowych; tekst jednolity: Dz. U. 2016 r. poz. 922).</p>
+                </div>
+            </div>
             <div class="row justify-content-center"  style="margin-top: 20px">
                 <div class="col-lg-2 col-md-2 col-sm-4">
-                    <button type="submit" class="btn btn-block btn-primary">Zapisz</button>
+                    <button id="button_submit" @click="sendForm" type="submit" class="btn btn-block btn-primary">Zapisz</button>
                 </div>
             </div>
             <div class="row justify-content-center"  style="margin-top: 20px">
@@ -232,7 +260,9 @@
     </div>
 
     <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>Vue.config.debug = true; Vue.config.devtools = true;</script>
     <script src="{{ asset('js/form.js') }}"></script>
     {{--<script src="{{ asset('js/vue.js') }}"></script>--}}

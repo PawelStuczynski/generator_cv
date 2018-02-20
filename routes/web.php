@@ -16,10 +16,7 @@ Route::get('/', function () {
 });
 
 Route::get('/form', 'FormController@show');
-Route::post('/save', [
-    'uses' => 'FormController@save',
-    'as' => 'form.save'
-]);
+Route::post('/save','FormController@save');
 
 Auth::routes();
 

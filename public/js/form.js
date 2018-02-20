@@ -1,4 +1,5 @@
 // Vue.config.devtools = true;
+
 form_id = new Vue({
     el: '#form_id',
     data: {
@@ -23,6 +24,23 @@ form_id = new Vue({
             level:''
         },
         languages:[],
+
+        image: '',
+        name:'',
+        surname:'',
+        phone:'',
+        email:'',
+        adress:'',
+        zipcode:'',
+        city:'',
+        birthdate:'',
+        additional_abilities:'',
+        interests:'',
+        agreement:false,
+        error_validated:[]
+
+
+        // preview_avatar: '<img src="{{URL::asset(\'img/avatar_preview.png\')}}" width="10%">',
     },
 
     methods: {
@@ -43,11 +61,146 @@ form_id = new Vue({
         },
         removeLanguage: function (index3) {
             Vue.delete(this.languages, index3);
-        }
+        },
 
+        onFileChange(e) {
+            var files = e.target.files || e.dataTransfer.files;
+            if (!files.length)
+                return;
+            this.createImage(files[0]);
+        },
+        createImage(file) {
+            var image = new Image();
+            var reader = new FileReader();
+            var vm = this;
+
+            reader.onload = (e) => {
+                vm.image = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        },
+        removeImage: function (e) {
+            this.image = '';
+        },
+
+        sendForm: function(event){
+
+            event.preventDefault();
+
+
+            var error_validate=true;
+            //Input image walidacja
+            if(this.image==''){
+                document.getElementById('image_id').className += ' agreement_class ';
+            }
+            else {
+            }
+            //Input name walidacja
+            if(this.name==''){
+                document.getElementById('name_id').className += ' is-invalid ';
+            }
+            else {
+                document.getElementById('name_id').classList.remove('is-invalid');
+            }
+            //Input surname walidacja
+            if(this.surname==''){
+                document.getElementById('surname_id').className += ' is-invalid ';
+            }
+            else {
+                document.getElementById('surname_id').classList.remove('is-invalid');
+            }
+            //Input phone walidacja
+            if(this.phone==''){
+                document.getElementById('phone_id').className += ' is-invalid ';
+            }
+            else {
+                document.getElementById('phone_id').classList.remove('is-invalid');
+            }
+            //Input email walidacja
+            if(this.email==''){
+                document.getElementById('email_id').className += ' is-invalid ';
+            }
+            else {
+                document.getElementById('email_id').classList.remove('is-invalid');
+            }
+            //Input adress walidacja
+            if(this.adress==''){
+                document.getElementById('adress_id').className += ' is-invalid ';
+            }
+            else {
+                document.getElementById('adress_id').classList.remove('is-invalid');
+            }
+            //Input zipcode walidacja
+            if(this.zipcode==''){
+                document.getElementById('zipcode_id').className += ' is-invalid ';
+            }
+            else {
+                document.getElementById('zipcode_id').classList.remove('is-invalid');
+            }
+            //Input city walidacja
+            if(this.city==''){
+                document.getElementById('city_id').className += ' is-invalid ';
+            }
+            else {
+                document.getElementById('city_id').classList.remove('is-invalid');
+            }
+            //Input birthdate walidacja
+            if(this.birthdate==''){
+                document.getElementById('birthdate_id').className += ' is-invalid ';
+            }
+            else {
+                document.getElementById('birthdate_id').classList.remove('is-invalid');
+            }
+            //Input agreement walidacja
+            if(this.agreement==false){
+                document.getElementById('agreement_id').className += ' agreement_class ';
+            }
+            else {
+                document.getElementById('agreement_id').classList.remove('agreement_class');
+            }
+
+            //Wysyłanie
+            if(this.image!='' && this.name!='' && this.surname!='' && this.phone!='' && this.email!='' && this.adress!='' && this.zipcode!='' && this.city!='' && this.birthdate!='' && this.agreement==true ){
+
+                 axios.post('/generator_cv/generator/public/save',{
+                     image:this.image,
+                     name:this.name,
+                     surname:this.surname,
+                     phone:this.phone,
+                     email:this.email,
+                     adress:this.adress,
+                     zipcode:this.zipcode,
+                     city:this.city,
+                     birthdate:this.birthdate,
+                     education:this.education,
+                     employer:this.employer,
+                     language:this.language,
+                     additional_abilities:this.additional_abilities,
+                     interests:this.interests
+
+                })
+                .then(function (response) {
+                     console.log(response);
+                 })
+                     .catch(function (error) {
+                         console.log(error);
+                     });
+            }
+            else{
+                alert('Wypełnij dane');
+            }
+               // && this.surname!='' && this.phone!='' && this.email!='' && this.image!='' && this.adress!='' && this.zipcode!='' && !this.city && !this.birthdate && !this.additional_abilities && !this.interests && !this.agreement && this.education && !this.employer && !this.language) {
+
+              //  alert('Wypełnij wszystkie pola');
+           // }
+
+        }
 
     }
 });
+
+//WALIDACJA FORMULARZA
+
 
 /*
  * This is not Vue.js code, just a bit of jQuery to test what data would be submitted.
