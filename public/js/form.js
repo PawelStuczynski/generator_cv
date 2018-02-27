@@ -72,11 +72,15 @@ form_id = new Vue({
         createImage(file) {
             var image = new Image();
             var reader = new FileReader();
+           // var formData = new formData;
             var vm = this;
 
             reader.onload = (e) => {
                 vm.image = e.target.result;
+
+
             };
+           // formData.append(file,image);
             reader.readAsDataURL(file);
         },
         removeImage: function (e) {
@@ -163,7 +167,7 @@ form_id = new Vue({
             if(this.image!='' && this.name!='' && this.surname!='' && this.phone!='' && this.email!='' && this.adress!='' && this.zipcode!='' && this.city!='' && this.birthdate!='' && this.agreement==true ){
 
                  axios.post('/generator_cv/generator/public/save',{
-                     image:this.image,
+                   //  image:this.image,
                      name:this.name,
                      surname:this.surname,
                      phone:this.phone,
@@ -172,9 +176,9 @@ form_id = new Vue({
                      zipcode:this.zipcode,
                      city:this.city,
                      birthdate:this.birthdate,
-                     education:this.education,
-                     employer:this.employer,
-                     language:this.language,
+                     educations:this.educations,
+                     employers:this.employers,
+                     languages:this.languages,
                      additional_abilities:this.additional_abilities,
                      interests:this.interests
 
@@ -198,17 +202,24 @@ form_id = new Vue({
 
     }
 });
-
-//WALIDACJA FORMULARZA
-
-
-/*
- * This is not Vue.js code, just a bit of jQuery to test what data would be submitted.
- */
-// testSumbit = function () {
-//     if (!window.jQuery) {
-//         console.warn('jQuery not present!')
-//         return false
-//     }
-//     console.info('Submitted (serverside) array:', jQuery('form').serializeJSON())
-// }
+$( document ).ready(checkContainer);
+    function checkContainer () {
+    if($('#avatar').is(':visible')){
+        var image = document.getElementById('avatar');
+        var cropper = new Cropper(image, {
+            aspectRatio: 16 / 9,
+            crop: function (e) {
+                console.log(e.detail.x);
+                console.log(e.detail.y);
+                console.log(e.detail.width);
+                console.log(e.detail.height);
+                console.log(e.detail.rotate);
+                console.log(e.detail.scaleX);
+                console.log(e.detail.scaleY);
+            }
+        });
+    }
+    else {
+        setTimeout(checkContainer, 50); //wait 50 ms, then try again
+    }
+}

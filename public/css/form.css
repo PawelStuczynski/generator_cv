@@ -8,3 +8,13 @@ img#avatar {
 .agreement_class{
     color: red;
 }
+
+
+/* This section is for crop section
+ * For this part, donot change the id or class names, but, you can change your css attributes as you like
+ */
+img.image {
+    max-width: 100%; /* This rule is very important, please do not ignore this! */
+}
+
+

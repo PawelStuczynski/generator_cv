@@ -1,9 +1,13 @@
+
 @extends('layouts.app')
 @section('title','Generator CV')
 @section('content')
 
     <link href="{{ asset('css/form.css') }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.2.2/cropper.min.css" />
+
+
     <div style="text-align: center">
         <img src="{{URL::asset('img/logo.png')}}" width="90%">
     </div>
@@ -264,7 +268,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>Vue.config.debug = true; Vue.config.devtools = true;</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.2.2/cropper.min.js"></script>
     <script src="{{ asset('js/form.js') }}"></script>
+
     {{--<script src="{{ asset('js/vue.js') }}"></script>--}}
 
 
