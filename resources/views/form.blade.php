@@ -26,12 +26,22 @@
 
                 <div   class="col-12"  style="margin-top: 20px; text-align: center">
                     <div v-if="!image">
-                        <input id="image_id" type="file" @change="onFileChange"  style="display: inline" class="">
+                        <input id="image_id" type="file" @change="onFileChange" onchange="checkContainer()"  style="display: inline" class="">
                     </div>
 
-                    <div v-else>
-                        <img id="avatar" :src="image" />
-                        <button type="button" @click="removeImage"  >Usuń zdjęcie</button>
+                    <div  v-else>
+                        <div>
+                            <img id="avatar" :src="image" />
+                            <div class="row justify-content-center">
+                                <div class="col-lg-2 col-md-2 col-sm-4 " style="margin: 30px 0px 30px 0px">
+                                    <button type="button" @click="removeImage" class=" btn btn-block btn-danger" >Usuń</button>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center" style="text-align: center ">
+                                <div class="preview col-lg-2 col-md-2 col-sm-4 ">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-8 col-sm-12" id="separator" style="height: 3px; background-color: #636b6f; margin-top:20px ; margin-bottom: 20px"></div>

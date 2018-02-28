@@ -202,12 +202,14 @@ form_id = new Vue({
 
     }
 });
+
+
 $( document ).ready(checkContainer);
     function checkContainer () {
     if($('#avatar').is(':visible')){
         var image = document.getElementById('avatar');
         var cropper = new Cropper(image, {
-            aspectRatio: 16 / 9,
+            aspectRatio: 7 / 9,
             crop: function (e) {
                 console.log(e.detail.x);
                 console.log(e.detail.y);
@@ -216,8 +218,13 @@ $( document ).ready(checkContainer);
                 console.log(e.detail.rotate);
                 console.log(e.detail.scaleX);
                 console.log(e.detail.scaleY);
-            }
+                cropper.getCroppedCanvas();
+            },
+            preview: '.preview',
+
         });
+
+
     }
     else {
         setTimeout(checkContainer, 50); //wait 50 ms, then try again

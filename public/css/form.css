@@ -1,6 +1,6 @@
 
 img#avatar {
-    width: 300px;
+    width: 100px;
     margin: auto;
     display: block;
     margin-bottom: 10px;
@@ -16,5 +16,9 @@ img#avatar {
 img.image {
     max-width: 100%; /* This rule is very important, please do not ignore this! */
 }
-
+.preview {
+    overflow: hidden;
+    width: 200px;
+    height: 200px;
+}
 
