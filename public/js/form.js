@@ -204,29 +204,37 @@ form_id = new Vue({
 });
 
 
-$( document ).ready(checkContainer);
+
+// $( document ).ready(function() {
+    var cropp;
     function checkContainer () {
-    if($('#avatar').is(':visible')){
-        var image = document.getElementById('avatar');
-        var cropper = new Cropper(image, {
-            aspectRatio: 7 / 9,
-            crop: function (e) {
-                console.log(e.detail.x);
-                console.log(e.detail.y);
-                console.log(e.detail.width);
-                console.log(e.detail.height);
-                console.log(e.detail.rotate);
-                console.log(e.detail.scaleX);
-                console.log(e.detail.scaleY);
-                cropper.getCroppedCanvas();
-            },
-            preview: '.preview',
+        if($('#avatar').is(':visible')){
+            var image = document.getElementById('avatar');
+            cropp = new Cropper(image, {
+                aspectRatio: 7 / 9,
+                preview: '.preview',
+            });
+            // console.log(cropp.getCroppedCanvas());
+            // console.log(cropp.cropper('getCroppedCanvas'));
+            //no praiwe
+            cropped = cropp.getCroppedCanvas({
+                width: 600,
+                height: 303
+            }).toDataURL();
 
-        });
+            console.log(cropped); // lol dzieki , nie wiedzialem ze tak mozna xD
 
-
+        }
+        else {
+            setTimeout(checkContainer, 50); //wait 50 ms, then try again
+        }
     }
-    else {
-        setTimeout(checkContainer, 50); //wait 50 ms, then try again
-    }
-}
+    checkContainer();
+
+// });
+
+//nie wiem wtf :/
+
+
+
+

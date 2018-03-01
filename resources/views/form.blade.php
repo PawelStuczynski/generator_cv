@@ -39,6 +39,7 @@
                             </div>
                             <div class="row justify-content-center" style="text-align: center ">
                                 <div class="preview col-lg-2 col-md-2 col-sm-4 ">
+
                                 </div>
                             </div>
                         </div>
@@ -279,6 +280,7 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>Vue.config.debug = true; Vue.config.devtools = true;</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.2.2/cropper.min.js"></script>
+
     <script src="{{ asset('js/form.js') }}"></script>
 
     {{--<script src="{{ asset('js/vue.js') }}"></script>--}}
