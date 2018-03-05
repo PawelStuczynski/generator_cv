@@ -13,7 +13,7 @@
     </div>
 
     <div class="form col-12 container-fluid" id='form_id'>
-        <form   action=""  method="post">
+        <form  action="/success"  method="post">
             <input type="hidden" name='_token' value="{{csrf_token()}}" >
             <div class="row justify-content-center">
                 {{----}}
@@ -264,7 +264,7 @@
             </div>
             <div class="row justify-content-center"  style="margin-top: 20px">
                 <div class="col-lg-2 col-md-2 col-sm-4">
-                    <button id="button_submit" @click="sendForm" type="submit" class="btn btn-block btn-primary">Zapisz</button>
+                    <button id="button_submit" @click="sendForm" type="submit" formaction="{{route('form.success')}}" class="btn btn-block btn-primary">Zapisz</button>
                 </div>
             </div>
             <div class="row justify-content-center"  style="margin-top: 20px">

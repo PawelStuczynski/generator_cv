@@ -18,6 +18,10 @@ Route::get('/', function () {
 Route::get('/form', 'FormController@show');
 Route::post('/save','FormController@save');
 Route::get('/template', 'FormController@fill');
+Route::get('/success',[
+    'uses' => 'FormController@success',
+    'as' => 'form.success'
+] );
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

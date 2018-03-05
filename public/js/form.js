@@ -185,6 +185,7 @@ form_id = new Vue({
                 })
                 .then(function (response) {
                      console.log(response);
+                    window.location = "/generator_cv/generator/public/success";
                  })
                      .catch(function (error) {
                          console.log(error);

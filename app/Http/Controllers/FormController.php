@@ -39,4 +39,8 @@ class FormController extends Controller
     {
         return view('template');
     }
+    public function success()
+    {
+        return view('success');
+    }
 }
