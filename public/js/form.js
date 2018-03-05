@@ -167,7 +167,7 @@ form_id = new Vue({
             if(this.image!='' && this.name!='' && this.surname!='' && this.phone!='' && this.email!='' && this.adress!='' && this.zipcode!='' && this.city!='' && this.birthdate!='' && this.agreement==true ){
 
                  axios.post('/generator_cv/generator/public/save',{
-                   //  image:this.image,
+                     image:cropped,
                      name:this.name,
                      surname:this.surname,
                      phone:this.phone,
@@ -207,6 +207,7 @@ form_id = new Vue({
 
 // $( document ).ready(function() {
     var cropp;
+    var cropped;
     function checkContainer () {
         if($('#avatar').is(':visible')){
             var image = document.getElementById('avatar');
@@ -231,6 +232,7 @@ form_id = new Vue({
     }
     checkContainer();
 
+    console.log(cropped);
 // });
 
 //nie wiem wtf :/

@@ -8,10 +8,7 @@ use Illuminate\Support\Facades\Input;
 
 class FormController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+
     public function show ()
     {
         return view('form');
@@ -21,6 +18,7 @@ class FormController extends Controller
     {
 
         $form = new Form();
+        $form -> image = $request->input('image');
         $form -> name = $request->input('name');
         $form -> surname = $request->input('surname');
         $form -> phone = $request->input('phone');
@@ -35,5 +33,10 @@ class FormController extends Controller
         $form -> additional_abilities = $request->input('additional_abilities');
         $form -> interests = $request->input('interests');
         $form ->save();
+    }
+
+    public function fill()
+    {
+        return view('template');
     }
 }
